@@ -460,6 +460,7 @@ class Boolean(Column):
         """ Always returns a Python boolean. """
         if isinstance(value, self.Quoter):
             value = value.value
+        value = super(Boolean, self).validate(value)
         return bool(value)
 
     def to_python(self, value):

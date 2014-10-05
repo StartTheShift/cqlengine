@@ -78,6 +78,25 @@ class TestDatetime(BaseCassEngTestCase):
         assert dts[0][0] is None
 
 
+class TestBoolDefault(BaseCassEngTestCase):
+
+    class BoolDefaultValueTest(Model):
+        __keyspace__ = 'test'
+        test_id = Integer(primary_key=True)
+        stuff = Boolean(default=True)
+
+    @classmethod
+    def setUpClass(cls):
+        super(TestBoolDefault, cls).setUpClass()
+        sync_table(cls.BoolDefaultValueTest)
+
+    def test_default_is_set(self):
+        tmp = self.BoolDefaultValueTest.create(test_id=1)
+        self.assertEqual(True, tmp.stuff)
+        tmp2 = self.BoolDefaultValueTest.get(test_id=1)
+        self.assertEqual(True, tmp2.stuff)
+
+
 class TestVarInt(BaseCassEngTestCase):
     class VarIntTest(Model):
         test_id = Integer(primary_key=True)
@@ -175,7 +194,7 @@ class TestUUID(BaseCassEngTestCase):
     @classmethod
     def tearDownClass(cls):
         super(TestUUID, cls).tearDownClass()
-        delete_table(cls.UUIDTest)  
+        delete_table(cls.UUIDTest)
 
     def test_uuid_str_with_dashes(self):
         a_uuid = uuid4()
