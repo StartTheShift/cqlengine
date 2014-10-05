@@ -1,11 +1,16 @@
 CHANGELOG
 
+0.14.1
+
+* fix default value population for Boolean column (backported from future)
+
+
 0.14.0
 
 * fix for setting map to empty (Lifto)
 * report when creating models with attributes that conflict with cqlengine (maedhroz)
 * use stable version of sure package (maedhroz)
-* performance improvements 
+* performance improvements
 
 
 0.13.0
